@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //arr.indexOf('찾는 것')
+        //내풀이: 답
+        function solution(s){
+            s = s.split("");
+            let arr2 = ["A","B","C","D","E"];
+            let answer=[0, 0, 0, 0, 0];
+            for(let i=0;i<arr2.length;i++){
+                for(let j=0;j<s.length;j++){
+                    if(arr2[i]===s[j])answer[i]++;
+            }
+        } let index = answer.indexOf(Math.max(...answer))
+        return arr2[index];  
+        }
+
+        //쌤 풀이
+        //Map, .has()
+        function solution(s){  
+                let answer;
+                let sH = new Map();
+                //Map() : JS에서 key-value페어로 이루어진 컬렉션 
+                //key들은 중복될 수 없음. 하나의 key에는 하나의 value만
+                //key에는 number를 쓸 수 없다
+                for(let x of s){
+                    if(sH.has(x)) sH.set(x, sH.get(x)+1);
+                    //주어진 키를 가진 요소가 Map에 존재하는지 반환
+                    //set으로 키:x / 밸류: sH.get(x)+1로 가져온 값에+1 
+                    //있으면 이미 있는 값에 밸류+1씩
+                    else sH.set(x, 1);
+                    //없으면 키로 넣고 밸류는 1로
+                }
+                let max=Number.MIN_SAFE_INTEGER;
+                for(let [key, val] of sH){ 
+                    //sH의 key, val을 쌍으로 구한다
+                    if(val>max){
+                        max=val; 
+                        //val가 max보다 크면 maㅌ
+                        answer=key
+                    }
+                }
+                return answer;
+            }
+
+        let str = "BACBACCACCBDEDE";
+        console.log(solution(str));
+    </script>
+
+</body>
+
+</html>
