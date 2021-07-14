@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+</head>
+<body>
+    <script>
+        //12시까지 
+        function solution(n, arr){
+            //arr의 원소 중 n개씩 더하는데 최대값 
+            //max 로 비교
+            let max = Number.MIN_SAFE_INTEGER;
+            for(let i=0;i<arr.length;i++){ 
+                let sum=0;
+                sum+=arr[i]+arr[i+1]+arr[i+2]; //잘못됨. n에 무슨 숫자가 들어갈지 모르므로 
+                if(max<sum)max=sum;
+            }return max;
+        }
+
+        //쌤 풀이 
+        function solution(k, arr){
+                let answer, sum=0;
+                for(let i=0; i<k; i++) sum+=arr[i]; // <k로 주어진 개수씩 더한 첫 세개의 합
+                answer=sum;
+                for(let i=k; i<arr.length; i++){
+                    sum+=(arr[i]-arr[i-k]);//새롭게 더해지는 원소는 +로, k번째 전에 있던 거는 [i-k]로 삭제
+                    answer=Math.max(answer, sum); // 첫번째랑 비교해서 더 큰 걸 answer로 한다
+                }                    
+                return answer;
+            }
+        
+        let a=[12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
+        console.log(solution(3, a));
+    </script> 
+    
+</body>
+</html>
