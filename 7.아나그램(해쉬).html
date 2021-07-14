@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function solution(m,n) {
+            //나열 순서 다르지만 구성 일치 
+            //아나그램인지 판별하는 - 대소문자 구분 
+            //각각 Map()으로 만들어서 key별로 value값이 같은지 보면 된다 
+            let m1 = new Map(); 
+            let m2 = new Map();
+            for(let x of m){ 
+                if(m1.has(x)) m1.set(x,m1.get(x)+1); 
+                else m1.set(x,1);
+            }
+
+            for(let x of n){ 
+                if(m2.has(x)) m2.set(x,m2.get(x)+1); 
+                else m2.set(x,1);
+            }
+
+            for(const [key,value] in m1){ 
+               for(let [k1,v1]in m2){ 
+                    let answer="NO";
+                    while((key === k1)&&(value == v1))answer="YES";   
+               }
+            }return answer;
+
+        }
+
+        //쌤 풀이
+        function solution(str1, str2){
+                let answer="YES"; 
+                let sH = new Map();
+                for(let x of str1){
+                    if(sH.has(x)) sH.set(x, sH.get(x)+1);
+                    else sH.set(x, 1);
+                }
+                //두번째 아나그램으로 하나씩 map에서 찾을 때 
+                //sH에 x가 없거나 sH에서 가져온 x의 값이 0일 때 NO를 리턴
+                //(1)없다 (2)get한 값이 0이다
+                //str2의 x에 대해 확인 후 하나씩 뺀다  
+
+                for(let x of str2){
+                    if(!sH.has(x) || sH.get(x)==0) return "NO"; 
+                    //(1)x가 없는지 확인
+                    //(2)만약 x가 왔는데 뺄 x의 값이 없으면 개수(value)가 다르니까 return NO;
+                    sH.set(x, sH.get(x)-1);//sH가 x가 있으면 1을 뺀다 
+                }
+                return answer;
+            }
+            
+
+        let a = "baAeCe";
+        let b = "baeeACA";
+        console.log(solution(a, b));
+    </script>
+
+
+</body>
+
+</html>
